@@ -2,6 +2,11 @@
 /target/
 **/*.rs.bk
 
+# Node / Tauri UI
+node_modules/
+desktop/dist/
+desktop/src-tauri/gen/
+
 # IDE / OS
 .idea/
 .vscode/

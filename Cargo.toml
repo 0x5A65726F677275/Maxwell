@@ -5,6 +5,7 @@ members = [
     "crates/max-orchestrator",
     "crates/max-proxy",
     "crates/maxwell",
+    "desktop/src-tauri",
 ]
 
 [workspace.package]
