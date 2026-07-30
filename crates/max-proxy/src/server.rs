@@ -231,7 +231,7 @@ fn build_outbound(
 ) -> Result<Request<Full<Bytes>>, ProxyError> {
     let mut builder = Request::builder().method(method).uri(target);
     for (name, value) in headers.iter() {
-        if name == http::header::PROXY_CONNECTION || name == http::header::HOST {
+        if name == http::header::HOST || name.as_str().eq_ignore_ascii_case("proxy-connection") {
             continue;
         }
         builder = builder.header(name, value);

@@ -135,11 +135,11 @@ fn build_origin_request(
         .map_err(|e| ProxyError::InvalidRequest(format!("bad uri: {e}")))?;
     let mut builder = Request::builder().method(method).uri(uri);
     for (name, value) in headers.iter() {
-        if name == http::header::PROXY_CONNECTION
-            || name == http::header::HOST
+        if name == http::header::HOST
             || name == http::header::CONNECTION
             || name == http::header::TRANSFER_ENCODING
             || name == http::header::CONTENT_LENGTH
+            || name.as_str().eq_ignore_ascii_case("proxy-connection")
         {
             continue;
         }
