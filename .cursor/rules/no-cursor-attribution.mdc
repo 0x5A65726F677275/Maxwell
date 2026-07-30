@@ -1,0 +1,10 @@
+---
+description: Never attribute commits to Cursor Agent
+alwaysApply: true
+---
+
+# Git attribution
+
+- Never add `Co-authored-by: Cursor`, `cursoragent@cursor.com`, or `Made-with: Cursor` to commits or PRs.
+- Do not use `git commit --trailer` for Cursor attribution.
+- Author/committer must remain the human repo owner only.

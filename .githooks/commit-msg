@@ -1,0 +1,9 @@
+#!/bin/sh
+# Strip Cursor Agent attribution so it never appears on GitHub Contributors.
+msg="$1"
+[ -f "$msg" ] || exit 0
+tmp="$msg.stripped"
+# portable strip without requiring GNU sed -i
+grep -v -i 'cursoragent@cursor\.com' "$msg" | grep -v -i '^Co-authored-by: Cursor' | grep -v -i '^Made-with: Cursor' | grep -v -i '^Made with Cursor' > "$tmp" || true
+mv "$tmp" "$msg"
+exit 0
