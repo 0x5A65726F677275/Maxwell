@@ -1,7 +1,14 @@
-# Tauri + React + Typescript
+# Maxwell desktop
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+Tauri 2 + SvelteKit (Svelte 5) desktop workbench. Layout language inspired by
+modern desktop clients such as GitButler (sidebar + dense panes), but the UI
+implementation is original Maxwell code — **GitButler source is not vendored**
+(see FSL-1.1-MIT license constraints).
 
-## Recommended IDE Setup
+```powershell
+$env:Path = "$env:USERPROFILE\.cargo\bin;$env:USERPROFILE\.bun\bin;" + $env:Path
+bun install
+bun run desktop:dev
+```
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+Tabs: Proxy · Binary · Operator · Findings

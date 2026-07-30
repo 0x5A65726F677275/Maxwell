@@ -1,0 +1,28 @@
+[package]
+name = "max-tauri"
+description = "Maxwell desktop UI (Tauri v2)"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[lib]
+name = "max_tauri_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+serde = { workspace = true }
+serde_json = { workspace = true }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "sync", "net", "io-util"] }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+max-core = { path = "../../crates/max-core" }
+max-orchestrator = { path = "../../crates/max-orchestrator" }
+max-proxy = { path = "../../crates/max-proxy" }
+max-binwalk = { path = "../../crates/max-binwalk" }
+uuid = { workspace = true }

@@ -25,12 +25,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: 22
-          cache: npm
-          cache-dependency-path: desktop/package-lock.json
+          bun-version: latest
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
@@ -55,17 +53,17 @@ jobs:
 
       - name: Install frontend deps
         working-directory: desktop
-        run: npm ci
+        run: bun install --frozen-lockfile
 
       - name: Build Windows installers
         if: matrix.platform == 'windows'
         working-directory: desktop
-        run: npm run desktop:build:windows
+        run: bun run desktop:build:windows
 
       - name: Build Linux packages
         if: matrix.platform == 'linux'
         working-directory: desktop
-        run: npm run desktop:build:linux
+        run: bun run desktop:build:linux
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

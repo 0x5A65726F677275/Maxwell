@@ -4,27 +4,30 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "vite --clearScreen false",
+    "build": "vite build",
     "preview": "vite preview",
+    "prepare": "svelte-kit sync",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "tauri": "tauri",
-    "desktop:dev": "tauri dev",
+    "desktop:dev": "bun scripts/desktop-dev.mjs",
     "desktop:build": "tauri build",
     "desktop:build:windows": "tauri build --bundles nsis,msi",
     "desktop:build:linux": "tauri build --bundles deb,appimage"
   },
   "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-opener": "^2"
   },
   "devDependencies": {
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "@vitejs/plugin-react": "^4.6.0",
+    "@sveltejs/adapter-static": "^3.0.8",
+    "@sveltejs/kit": "^2.22.0",
+    "@sveltejs/vite-plugin-svelte": "^5.1.0",
+    "@tauri-apps/cli": "^2",
+    "@types/node": "^26.1.2",
+    "svelte": "^5.34.0",
+    "svelte-check": "^4.2.0",
     "typescript": "~5.8.3",
-    "vite": "^7.0.4",
-    "@tauri-apps/cli": "^2"
+    "vite": "^6.3.5"
   }
 }

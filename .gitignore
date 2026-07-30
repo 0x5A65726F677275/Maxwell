@@ -5,7 +5,10 @@
 # Node / Tauri UI
 node_modules/
 desktop/dist/
+desktop/build/
+desktop/.svelte-kit/
 desktop/src-tauri/gen/
+.maxwell-desktop-backup/
 
 # IDE / OS
 .idea/

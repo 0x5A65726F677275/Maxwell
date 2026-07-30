@@ -19,7 +19,7 @@ Local-first security **workbench** (proxy + binary analysis + operator console).
 
 ## GUI (recommended)
 
-Native desktop app (Tauri). Dev mode uses Vite only for hot reload; release builds produce real installers/executables.
+Native desktop app (Tauri 2 + SvelteKit / Svelte 5). Dev mode uses Vite for hot reload; release builds produce real installers/executables. No separate website — desktop only.
 
 Tabs:
 - **Proxy** — start listener, history, inspect, replay
@@ -31,10 +31,10 @@ Tabs:
 
 **Windows**
 ```powershell
-$env:Path = "$env:USERPROFILE\.cargo\bin;" + $env:Path
+$env:Path = "$env:USERPROFILE\.cargo\bin;$env:USERPROFILE\.bun\bin;" + $env:Path
 cd desktop
-npm install
-npm run desktop:dev
+bun install
+bun run desktop:dev
 ```
 
 **Linux (Kali/Ubuntu)**
@@ -43,8 +43,8 @@ npm run desktop:dev
 sudo apt install -y libwebkit2gtk-4.1-dev librsvg2-dev patchelf \
   libssl-dev libayatana-appindicator3-dev
 cd desktop
-npm install
-npm run desktop:dev
+bun install
+bun run desktop:dev
 ```
 
 ### Installable builds (`.exe` / `.deb` / AppImage)
@@ -54,8 +54,8 @@ Build **on each OS** (Tauri cannot cross-compile the GUI WebView stack).
 **Windows → NSIS setup + MSI**
 ```powershell
 cd desktop
-npm install
-npm run desktop:build:windows
+bun install
+bun run desktop:build:windows
 ```
 Outputs:
 - `desktop/src-tauri/target/release/bundle/nsis/*-setup.exe`
@@ -65,8 +65,8 @@ Outputs:
 **Linux → `.deb` + AppImage**
 ```bash
 cd desktop
-npm install
-npm run desktop:build:linux
+bun install
+bun run desktop:build:linux
 ```
 Outputs:
 - `desktop/src-tauri/target/release/bundle/deb/*.deb`
