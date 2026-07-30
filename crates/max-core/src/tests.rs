@@ -1,6 +1,6 @@
-use max_core::{
-    BinaryFormat, BinaryInfo, Event, EventKind, HttpMethod, HttpRequest, HttpResponse, RawEvent,
-    SessionId, SessionRole, PLATFORM_NAME,
+use crate::{
+    BinaryFormat, BinaryInfo, Event, EventKind, FunctionInfo, HttpMethod, HttpRequest, HttpResponse,
+    RawEvent, SessionId, SessionRole, PLATFORM_NAME,
 };
 use std::collections::HashMap;
 
@@ -61,7 +61,7 @@ fn binary_info_roundtrip() {
         format: BinaryFormat::Elf,
         entry_point: Some(0x401000),
         architecture: Some("x86_64".into()),
-        functions: vec![max_core::FunctionInfo {
+        functions: vec![FunctionInfo {
             name: Some("main".into()),
             address: 0x401000,
             size: Some(128),
