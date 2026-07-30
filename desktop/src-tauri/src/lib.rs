@@ -8,6 +8,7 @@ use max_orchestrator::Orchestrator;
 use max_proxy::{default_ca_dir, ProxyConfig, ProxyServer};
 use serde::Serialize;
 use tauri::{AppHandle, Emitter, State};
+use tokio::sync::oneshot;
 
 struct AppState {
     orch: Orchestrator,
@@ -21,7 +22,7 @@ struct InnerState {
     ca_path: Option<String>,
     mitm: bool,
     running: bool,
-    abort: Option<tokio::task::AbortHandle>,
+    stop_tx: Option<oneshot::Sender<()>>,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -71,8 +72,8 @@ async fn start_proxy(
         if inner.running {
             return Err("proxy already running".into());
         }
-        if let Some(abort) = inner.abort.take() {
-            abort.abort();
+        if let Some(tx) = inner.stop_tx.take() {
+            let _ = tx.send(());
         }
     }
 
@@ -115,9 +116,17 @@ async fn start_proxy(
     let ca_path = server.ca_cert_path().display().to_string();
     let session_id = session.id.to_string();
 
-    let handle = tauri::async_runtime::spawn(async move {
-        if let Err(err) = server.serve().await {
-            tracing::error!(error = %err, "proxy server stopped");
+    let (stop_tx, stop_rx) = oneshot::channel::<()>();
+    tauri::async_runtime::spawn(async move {
+        tokio::select! {
+            result = server.serve() => {
+                if let Err(err) = result {
+                    tracing::error!(error = %err, "proxy server stopped");
+                }
+            }
+            _ = stop_rx => {
+                tracing::info!("proxy stop requested");
+            }
         }
     });
 
@@ -128,7 +137,7 @@ async fn start_proxy(
         inner.ca_path = Some(ca_path.clone());
         inner.mitm = mitm;
         inner.running = true;
-        inner.abort = Some(handle.abort_handle());
+        inner.stop_tx = Some(stop_tx);
     }
 
     let _ = app.emit(
@@ -155,8 +164,8 @@ async fn start_proxy(
 #[tauri::command]
 fn stop_proxy(app: AppHandle, state: State<'_, AppState>) -> Result<(), String> {
     let mut inner = state.inner.lock().map_err(|e| e.to_string())?;
-    if let Some(abort) = inner.abort.take() {
-        abort.abort();
+    if let Some(tx) = inner.stop_tx.take() {
+        let _ = tx.send(());
     }
     inner.running = false;
     let status = ProxyStatus {
