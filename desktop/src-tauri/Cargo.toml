@@ -24,3 +24,5 @@ tracing-subscriber = { workspace = true }
 max-core = { path = "../../crates/max-core" }
 max-orchestrator = { path = "../../crates/max-orchestrator" }
 max-proxy = { path = "../../crates/max-proxy" }
+max-binwalk = { path = "../../crates/max-binwalk" }
+uuid = { workspace = true }

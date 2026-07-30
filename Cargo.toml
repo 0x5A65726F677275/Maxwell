@@ -4,6 +4,7 @@ members = [
     "crates/max-core",
     "crates/max-orchestrator",
     "crates/max-proxy",
+    "crates/max-binwalk",
     "crates/maxwell",
     "desktop/src-tauri",
 ]

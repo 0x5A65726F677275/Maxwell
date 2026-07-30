@@ -14,6 +14,7 @@ pub enum BinaryFormat {
 
 /// Summary of a parsed executable.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct BinaryInfo {
     pub path: String,
     pub format: BinaryFormat,
@@ -25,8 +26,19 @@ pub struct BinaryInfo {
 
 /// Disassembled / recovered function summary.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct FunctionInfo {
     pub name: Option<String>,
     pub address: u64,
     pub size: Option<u64>,
+    #[serde(default)]
+    pub disasm: Vec<InstructionInfo>,
+}
+
+/// One disassembled instruction.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct InstructionInfo {
+    pub address: u64,
+    pub bytes: String,
+    pub text: String,
 }

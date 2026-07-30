@@ -1,0 +1,16 @@
+[package]
+name = "max-binwalk"
+description = "Static binary analysis (PE/ELF/Mach-O) for Maxwell"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+max-core = { path = "../max-core" }
+goblin = "0.9"
+iced-x86 = { version = "1", default-features = false, features = ["std", "decoder", "intel"] }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+
+[dev-dependencies]

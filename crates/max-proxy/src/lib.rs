@@ -6,11 +6,13 @@
 
 pub mod anomaly;
 pub mod capture;
+pub mod replay;
 pub mod server;
 pub mod tls;
 
 pub use anomaly::{detect_anomaly, AnomalyHit};
 pub use capture::Capture;
+pub use replay::replay_request;
 pub use server::{ProxyConfig, ProxyError, ProxyServer};
 pub use tls::{default_ca_dir, CertificateAuthority};
 

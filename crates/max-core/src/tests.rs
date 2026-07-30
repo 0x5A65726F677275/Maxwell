@@ -65,6 +65,7 @@ fn binary_info_roundtrip() {
             name: Some("main".into()),
             address: 0x401000,
             size: Some(128),
+            disasm: Vec::new(),
         }],
     };
 
