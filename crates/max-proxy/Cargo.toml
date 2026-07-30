@@ -1,0 +1,29 @@
+[package]
+name = "max-proxy"
+description = "Intercepting HTTP/HTTPS proxy that emits Maxwell collaboration events"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+max-core = { path = "../max-core" }
+max-orchestrator = { path = "../max-orchestrator" }
+tokio = { workspace = true, features = ["net", "io-util", "macros", "rt-multi-thread", "sync"] }
+hyper = { workspace = true }
+hyper-util = { workspace = true }
+http-body-util = { workspace = true }
+bytes = { workspace = true }
+http = { workspace = true }
+tracing = { workspace = true }
+thiserror = { workspace = true }
+rustls = { workspace = true }
+tokio-rustls = { workspace = true }
+rcgen = { workspace = true }
+rustls-pemfile = { workspace = true }
+webpki-roots = { workspace = true }
+hyper-rustls = { workspace = true }
+dirs = { workspace = true }
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "net", "time"] }

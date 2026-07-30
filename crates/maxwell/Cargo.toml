@@ -1,0 +1,20 @@
+[package]
+name = "maxwell"
+description = "Maxwell CLI — local-first security collaboration MVP"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "maxwell"
+path = "src/main.rs"
+
+[dependencies]
+max-core = { path = "../max-core" }
+max-orchestrator = { path = "../max-orchestrator" }
+max-proxy = { path = "../max-proxy" }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "signal", "sync", "net", "io-util"] }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+clap = { workspace = true }
