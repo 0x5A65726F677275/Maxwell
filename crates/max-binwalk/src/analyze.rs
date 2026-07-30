@@ -202,13 +202,11 @@ fn analyze_macho(
     if entry != 0 {
         addrs.insert(entry, Some("_main".into()));
     }
-    if let Ok(syms) = macho.symbols() {
-        for sym in syms.iter() {
-            if let Ok((name, nlist)) = sym {
-                let addr = nlist.n_value;
-                if addr != 0 && (name.starts_with('_') || nlist.is_global()) {
-                    addrs.entry(addr).or_insert(Some(name.to_string()));
-                }
+    for sym in macho.symbols() {
+        if let Ok((name, nlist)) = sym {
+            let addr = nlist.n_value;
+            if addr != 0 && (name.starts_with('_') || nlist.is_global()) {
+                addrs.entry(addr).or_insert(Some(name.to_string()));
             }
         }
     }
